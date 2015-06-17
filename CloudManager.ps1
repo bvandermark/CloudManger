@@ -3,26 +3,26 @@
         $userName=$null,
         $apiKey=$null,
         $apiRegion=$null,
-        [ValidateSet("Clear","Set","List")]
-        $action="List"
+        [switch]$clear,
+        [switch]$list
     )
 
+    
+    $PSBoundParameters.Remove("clear") | Out-Null
+    $PSBoundParameters.Remove("list") | Out-Null
+    $PSBoundParameters.Remove("verbose") | Out-Null
     $ErrorActionPreference = "SilentlyContinue"
 
-    if($action -eq "List"){
-        $PSBoundParameters.userName = Get-Variable -Name userName -ValueOnly
-        $PSBoundParameters.apiKey = Get-Variable -Name apiKey -ValueOnly
-        $PSBoundParameters.apiRegion = Get-Variable -Name apiRegion -ValueOnly
+    if($list -or $clear){
+        $PSBoundParameters.userName = Get-Variable -Name userName -ValueOnly -Scope Global
+        $PSBoundParameters.apiKey = Get-Variable -Name apiKey -ValueOnly -Scope Global
+        $PSBoundParameters.apiRegion = Get-Variable -Name apiRegion -ValueOnly -Scope Global
     }
-    $PSBoundParameters.Remove("action") | Out-Null
-    $PSBoundParameters.Remove("verbose") | Out-Null
     foreach($param in $PSBoundParameters.Keys){
         $value = $PSBoundParameters.($param)
-        switch($action){
-            List{Get-Variable -Name $param -Scope Global}
-            Set{Set-Variable -Name $param -Value $value -Scope Global -Verbose}
-            Clear{Remove-Variable -Name $param -Verbose}
-        }
+        if($list){Get-Variable -Name $param -Scope Global}
+        elseif($clear){Remove-Variable -Name $param -Scope Global -Verbose}
+        else{Set-Variable -Name $param -Value $value -Scope Global -Verbose}
     }
 }
 function Get-AuthServices {
