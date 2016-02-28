@@ -12,3 +12,10 @@ After prompting you for API Credentials, it will return something like:
 >servers
 >-------
 >{@{status=ACTIVE;...
+
+So let's go over the parameters this function will accept:
+
+- cloudRegion = ("DFW","ORD","SYD","IAD","HKG") - This defines the region you're working in. This parameter is a Validate Set meaning it will check input and match it against the predefined list.
+- cloudService = ("cloudFilesCDN","cloudFiles","cloudBlockStorage","cloudImages","cloudQueues","cloudBigData","cloudOrchestration","cloudServersOpenStack","autoscale","cloudDatabases","cloudBackup","cloudNetworks","cloudMetrics","cloudLoadBalancers","cloudFeeds","cloudMonitoring","cloudDNS","rackCDN")
+	Another Validate Set parameter that defines the Rackspace API space, or product you are working with. 
+- filter = This paramter is a partial URL of the service you're working with; the rest of the URL is built with the paramters provided above. You can search through the [Rackspace Docs](https://docs.rackspace.com), and please note where the docs show /v1 or /v2 or they request the account ID, those portions are already handled by the module itself.
