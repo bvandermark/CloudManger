@@ -43,6 +43,7 @@
                     return $false
                 }
             }
+            else{return $false}
         }
         'Revoke' {
             $identityURI += "/tokens"
