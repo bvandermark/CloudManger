@@ -98,3 +98,4 @@ function Invoke-RackAPI{
     }
     Invoke-RestMethod -Uri $workerURI -Method $requestType -Headers $AuthToken -Body $body -ContentType application/json
 }
+Export-ModuleMember -Function Invoke-RackAPI, Manage-APIToken
