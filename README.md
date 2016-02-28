@@ -7,3 +7,8 @@ Usage is fairly simple is flexible enough to allow you to work with most parts o
 ```Powershell
 Invoke-RackAPI -cloudRegion ORD -cloudService cloudServersOpenStack -filter /servers/detail
 ```
+
+After prompting you for API Credentials, it will return something like:
+>servers
+>-------
+>{@{status=ACTIVE;...
