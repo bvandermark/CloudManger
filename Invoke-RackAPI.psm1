@@ -32,16 +32,10 @@
                 $identityURI += "/tokens/$($token.'X-Auth-Token')"
                 try{
                     [datetime]$tokenExpires = (Invoke-RestMethod -Uri $identityURI -Method Get -ContentType application/json -Header $token).access.token.expires
-                    if(($tokenExpires -ne $null) -and ($tokenExpires -gt (Get-Date).AddMinutes(5))){
-                        return $true
-                    }
-                    else{
-                        return $false
-                    }
+                    if(($tokenExpires -ne $null) -and ($tokenExpires -gt (Get-Date).AddMinutes(5))){return $true}
+                    else{return $false}
                 }
-                catch{
-                    return $false
-                }
+                catch{return $false}
             }
             else{return $false}
         }
